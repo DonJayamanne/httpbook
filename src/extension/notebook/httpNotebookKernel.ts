@@ -45,6 +45,32 @@ export class HttpNotebookKernel implements vscode.NotebookCellStatusBarItemProvi
     const result: vscode.NotebookCellStatusBarItem[] = [];
 
 
+    result.push(new vscode.NotebookCellStatusBarItem(
+      'settings (string command)',
+      vscode.NotebookCellStatusBarAlignment.Left,
+      'workbench.action.openRawDefaultSettings',
+      'settings'
+    ));
+    result.push(new vscode.NotebookCellStatusBarItem(
+      'settings (empty args)',
+      vscode.NotebookCellStatusBarAlignment.Left,
+      {
+        command: 'workbench.action.openRawDefaultSettings',
+        title: 'settings',
+        arguments: []
+      }
+    ));
+    result.push(new vscode.NotebookCellStatusBarItem(
+      'broken settings',
+      vscode.NotebookCellStatusBarAlignment.Left,
+      {
+        command: 'workbench.action.openRawDefaultSettings',
+        title: 'broken settings',
+        arguments: [cell.document]
+      }
+    ));
+
+
     const cellHttpFile = await this.getCellHttpFile(cell);
     if (cellHttpFile) {
       result.push(new vscode.NotebookCellStatusBarItem(
